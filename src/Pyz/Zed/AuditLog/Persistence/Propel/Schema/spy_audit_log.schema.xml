@@ -7,7 +7,7 @@
         <column name="entity_type" type="VARCHAR" size="255" required="true"/>
         <column name="entity_id" type="BIGINT" required="true"/>
         <column name="user_id" type="BIGINT" required="true"/>
-        <column name="timestamp" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+        <column name="timestamp" type="TIMESTAMP" required="true"/>
         <column name="details" type="LONGVARCHAR" required="false"/>
     </table>
 
