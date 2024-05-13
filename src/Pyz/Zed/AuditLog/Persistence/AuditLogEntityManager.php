@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\AuditLog\Persistence;
 
+use Generated\Shared\Transfer\AuditLogTransfer;
+use Orm\Zed\AuditLog\Persistence\AuditLogs;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -14,4 +16,15 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class AuditLogEntityManager extends AbstractEntityManager implements AuditLogEntityManagerInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\AuditLogTransfer $auditLogTransfer
+     *
+     * @return void
+     */
+    public function saveAuditLog(AuditLogTransfer $auditLogTransfer): void
+    {
+        $auditLogEntity = new AuditLogs();
+        $auditLogEntity->fromArray($auditLogTransfer->modifiedToArray());
+        $auditLogEntity->save();
+    }
 }

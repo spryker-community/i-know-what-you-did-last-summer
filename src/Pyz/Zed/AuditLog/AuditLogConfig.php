@@ -11,4 +11,8 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class AuditLogConfig extends AbstractBundleConfig
 {
+    /**
+     * @var string
+     */
+    public const PUBLISH_AUDIT_LOG = 'publish.audit_log';
 }

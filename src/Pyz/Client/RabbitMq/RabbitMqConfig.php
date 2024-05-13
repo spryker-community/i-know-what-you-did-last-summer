@@ -7,6 +7,7 @@
 
 namespace Pyz\Client\RabbitMq;
 
+use Pyz\Zed\AuditLog\AuditLogConfig;
 use Spryker\Client\RabbitMq\RabbitMqConfig as SprykerRabbitMqConfig;
 use Spryker\Shared\AssetStorage\AssetStorageConfig;
 use Spryker\Shared\AvailabilityStorage\AvailabilityStorageConfig;
@@ -122,6 +123,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
             CustomerStorageConfig::PUBLISH_CUSTOMER_INVALIDATED,
+            AuditLogConfig::PUBLISH_AUDIT_LOG,
         ];
     }
 

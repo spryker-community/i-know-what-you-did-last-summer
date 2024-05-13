@@ -9,4 +9,10 @@ namespace Pyz\Zed\AuditLog\Business;
 
 interface AuditLogFacadeInterface
 {
+    /**
+     * @param list<\Generated\Shared\Transfer\EventEntityTransfer|\Generated\Shared\Transfer\AuditLogTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function writeAuditLogCollection(array $eventEntityTransfers): void;
 }

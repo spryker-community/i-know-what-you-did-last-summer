@@ -16,4 +16,13 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class AuditLogFacade extends AbstractFacade implements AuditLogFacadeInterface
 {
+    /**
+     * @param list<\Generated\Shared\Transfer\EventEntityTransfer|\Generated\Shared\Transfer\AuditLogTransfer> $eventEntityTransfers
+     *
+     * @return void
+     */
+    public function writeAuditLogCollection(array $eventEntityTransfers): void
+    {
+        $this->getFactory()->createAuditLogWriter()->writeAuditLogCollection($eventEntityTransfers);
+    }
 }

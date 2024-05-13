@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\Publisher;
 
+use Pyz\Zed\AuditLog\Communication\Plugin\Publisher\AuditLogWritePublisherPlugin;
 use Spryker\Shared\GlossaryStorage\GlossaryStorageConfig;
 use Spryker\Shared\PublishAndSynchronizeHealthCheck\PublishAndSynchronizeHealthCheckConfig;
 use Spryker\Zed\AssetStorage\Communication\Plugin\Publisher\Asset\AssetDeletePublisherPlugin;
@@ -220,6 +221,7 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             new ProductRelationWriteForPublishingPublisherPlugin(),
             new ProductRelationProductAbstractWritePublisherPlugin(),
             new ProductRelationStoreWritePublisherPlugin(),
+            new AuditLogWritePublisherPlugin(),
         ];
     }
 
