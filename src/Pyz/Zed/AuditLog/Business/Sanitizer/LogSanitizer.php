@@ -12,6 +12,11 @@ use Pyz\Zed\AuditLog\AuditLogConfig;
 
 class LogSanitizer
 {
+    /**
+     * @var string
+     */
+    protected const SANITIZED_VALUE = '[SANITIZED]';
+
     private AuditLogConfig $config;
 
     /**
@@ -31,10 +36,44 @@ class LogSanitizer
     {
         foreach ($this->config->getSensitiveAuditLogKeys() as $sensitiveKey) {
             if ($auditLogTransfer->offsetExists($sensitiveKey)) {
-                $auditLogTransfer->offsetSet($sensitiveKey, '[SANITIZED]');
+                $auditLogTransfer->offsetSet($sensitiveKey, static::SANITIZED_VALUE);
+            }
+
+            if ($auditLogTransfer->getDetails()) {
+                $this->sanitizeDetails($auditLogTransfer);
             }
         }
 
         return $auditLogTransfer;
+    }
+
+    /**
+     * @param array<mixed, mixed> $data
+     *
+     * @return <mixed,mixed>
+     */
+    private function sanitizeArray(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = $this->sanitizeArray($value);
+            } elseif (in_array($key, $this->config->getSensitiveAuditLogKeys(), true)) {
+                $data[$key] = static::SANITIZED_VALUE;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AuditLogTransfer $auditLogTransfer
+     *
+     * @return void
+     */
+    public function sanitizeDetails(AuditLogTransfer $auditLogTransfer): void
+    {
+        $details = json_decode($auditLogTransfer->getDetails(), true);
+        $sanitizedDetails = $this->sanitizeArray($details);
+        $auditLogTransfer->setDetails(json_encode($sanitizedDetails));
     }
 }
