@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\AuditLog\Business;
 
+use Pyz\Zed\AuditLog\Business\Sanitizer\LogSanitizer;
 use Pyz\Zed\AuditLog\Business\Writer\AuditLogWriter;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -17,11 +18,19 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class AuditLogBusinessFactory extends AbstractBusinessFactory
 {
- /**
-  * @return \Pyz\Zed\AuditLog\Business\Writer\AuditLogWriter
-  */
+    /**
+     * @return \Pyz\Zed\AuditLog\Business\Writer\AuditLogWriter
+     */
     public function createAuditLogWriter(): AuditLogWriter
     {
         return new AuditLogWriter($this->getEntityManager());
+    }
+
+    /**
+     * @return \Pyz\Zed\AuditLog\Business\Sanitizer\LogSanitizer
+     */
+    public function createAuditLogSanitizer(): LogSanitizer
+    {
+        return new LogSanitizer($this->getConfig());
     }
 }

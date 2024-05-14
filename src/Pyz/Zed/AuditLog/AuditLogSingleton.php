@@ -8,6 +8,8 @@
 namespace Pyz\Zed\AuditLog;
 
 use Generated\Shared\Transfer\AuditLogTransfer;
+use Pyz\Zed\AuditLog\Business\AuditLogBusinessFactory;
+use Pyz\Zed\AuditLog\Business\Sanitizer\LogSanitizer;
 use Spryker\Zed\Kernel\Locator;
 
 class AuditLogSingleton
@@ -23,6 +25,11 @@ class AuditLogSingleton
     private array $auditLogs = [];
 
     /**
+     * @var \Pyz\Zed\AuditLog\Business\Sanitizer\LogSanitizer
+     */
+    private LogSanitizer $auditLogSanitizer;
+
+    /**
      * @return self
      */
     public static function getInstance(): self
@@ -35,6 +42,11 @@ class AuditLogSingleton
         return self::$instance;
     }
 
+    private function __construct()
+    {
+        $this->auditLogSanitizer = (new AuditLogBusinessFactory())->createAuditLogSanitizer();
+    }
+
     /**
      * @param \Generated\Shared\Transfer\AuditLogTransfer $auditLogTransfer
      *
@@ -42,6 +54,8 @@ class AuditLogSingleton
      */
     public function collectAuditLogData(AuditLogTransfer $auditLogTransfer): void
     {
+        $auditLogTransfer = $this->auditLogSanitizer->sanitizeAuditLog($auditLogTransfer);
+
         $this->auditLogs[] = $auditLogTransfer;
     }
 
