@@ -21,19 +21,19 @@
                 <div class="col-xs-12 col-md-6 col-lg-3">
                     <dl>
                         <dt>{{ 'ID' | trans }}</dt>
-                        <dd>{{ auditLog.id }}</dd>
+                        <dd>{{ auditLog.id | e }}</dd>
                         <dt>{{ 'Action' | trans }}</dt>
-                        <dd>{{ auditLog.action }}</dd>
+                        <dd>{{ auditLog.action | e }}</dd>
                         <dt>{{ 'Entity Type' | trans }}</dt>
-                        <dd>{{ auditLog.entityType }}</dd>
+                        <dd>{{ auditLog.entityType | e }}</dd>
                         <dt>{{ 'Entity ID' | trans }}</dt>
-                        <dd>{{ auditLog.entityId }}</dd>
+                        <dd>{{ auditLog.entityId | e}}</dd>
                         <dt>{{ 'User ID' | trans }}</dt>
-                        <dd>{{ auditLog.userId }}</dd>
+                        <dd>{{ auditLog.userId | e}}</dd>
                         <dt>{{ 'Timestamp' | trans }}</dt>
-                        <dd>{{ auditLog.timestamp }}</dd>
+                        <dd>{{ auditLog.timestamp | formatDateTime }}</dd>
                         <dt>{{ 'Details' | trans }}</dt>
-                        <dd>{{ auditLog.details }}</dd>
+                        <dd>{{ auditLog.details | raw }}</dd>
                     </dl>
                 </div>
             </div>

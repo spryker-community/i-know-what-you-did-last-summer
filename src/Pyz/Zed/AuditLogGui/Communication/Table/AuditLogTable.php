@@ -48,11 +48,6 @@ class AuditLogTable extends AbstractTable
     /**
      * @var string
      */
-    protected const COL_DETAILS = 'details';
-
-    /**
-     * @var string
-     */
     protected const COL_ACTIONS = 'actions';
 
     /**
@@ -116,7 +111,6 @@ class AuditLogTable extends AbstractTable
             static::COL_ENTITY_ID => 'Entity ID',
             static::COL_USER_ID => 'User ID',
             static::COL_TIMESTAMP => 'Timestamp',
-            static::COL_DETAILS => 'Details',
         ]);
 
         $config->setSortable([
@@ -175,7 +169,6 @@ class AuditLogTable extends AbstractTable
             static::COL_ENTITY_ID => $auditLogEntity->getEntityId(),
             static::COL_USER_ID => $auditLogEntity->getUserId(),
             static::COL_TIMESTAMP => $auditLogEntity->getTimestamp('Y-m-d H:i:s'),
-            static::COL_DETAILS => $auditLogEntity->getDetails(),
             static::COL_ACTIONS => $this->buildLinks($auditLogEntity),
         ];
     }
