@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\AuditLog\Business;
 
+use Generated\Shared\Transfer\AuditLogTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -24,5 +25,15 @@ class AuditLogFacade extends AbstractFacade implements AuditLogFacadeInterface
     public function writeAuditLogCollection(array $eventEntityTransfers): void
     {
         $this->getFactory()->createAuditLogWriter()->writeAuditLogCollection($eventEntityTransfers);
+    }
+
+    /**
+     * @param int $idAuditLog
+     *
+     * @return \Generated\Shared\Transfer\AuditLogTransfer|null
+     */
+    public function findAuditLogById(int $idAuditLog): ?AuditLogTransfer
+    {
+        return $this->getRepository()->findAuditLogById($idAuditLog);
     }
 }

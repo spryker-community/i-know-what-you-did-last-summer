@@ -7,6 +7,14 @@
 
 namespace Pyz\Zed\AuditLog\Persistence;
 
+use Generated\Shared\Transfer\AuditLogTransfer;
+
 interface AuditLogRepositoryInterface
 {
+    /**
+     * @param int $idAuditLog
+     *
+     * @return \Generated\Shared\Transfer\AuditLogTransfer|null
+     */
+    public function findAuditLogById(int $idAuditLog): ?AuditLogTransfer;
 }

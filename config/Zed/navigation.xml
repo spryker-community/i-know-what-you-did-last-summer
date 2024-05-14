@@ -429,6 +429,13 @@
                 <controller>list</controller>
                 <action>index</action>
             </stores>
+            <audit-logs>
+                <label>Audit logs</label>
+                <title>Audit logs</title>
+                <bundle>audit-log-gui</bundle>
+                <controller>list</controller>
+                <action>index</action>
+            </audit-logs>
             <warehouses>
                 <label>Warehouses</label>
                 <title>Warehouses</title>

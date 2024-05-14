@@ -1,0 +1,15 @@
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% block section_title %}{{ 'Manage Audit Logs' | trans }}{% endblock %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Audit Logs' | trans } %}
+
+        {% block widget_content %}
+            {{ auditLogTable | raw }}
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}

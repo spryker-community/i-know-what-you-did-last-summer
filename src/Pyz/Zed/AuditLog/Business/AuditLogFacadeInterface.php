@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\AuditLog\Business;
 
+use Generated\Shared\Transfer\AuditLogTransfer;
+
 interface AuditLogFacadeInterface
 {
     /**
@@ -15,4 +17,11 @@ interface AuditLogFacadeInterface
      * @return void
      */
     public function writeAuditLogCollection(array $eventEntityTransfers): void;
+
+    /**
+     * @param int $idAuditLog
+     *
+     * @return \Generated\Shared\Transfer\AuditLogTransfer|null
+     */
+    public function findAuditLogById(int $idAuditLog): ?AuditLogTransfer;
 }

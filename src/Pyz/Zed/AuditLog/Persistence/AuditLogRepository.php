@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\AuditLog\Persistence;
 
+use Generated\Shared\Transfer\AuditLogTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -14,4 +15,22 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class AuditLogRepository extends AbstractRepository implements AuditLogRepositoryInterface
 {
+    /**
+     * @param int $idAuditLog
+     *
+     * @return \Generated\Shared\Transfer\AuditLogTransfer|null
+     */
+    public function findAuditLogById(int $idAuditLog): ?AuditLogTransfer
+    {
+        $auditLogEntity = $this->getFactory()
+            ->createAuditLogQuery()
+            ->filterById($idAuditLog)
+            ->findOne();
+
+        if (!$auditLogEntity) {
+            return null;
+        }
+
+        return (new AuditLogTransfer())->fromArray($auditLogEntity->toArray(), true);
+    }
 }

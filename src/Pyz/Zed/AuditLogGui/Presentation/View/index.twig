@@ -1,0 +1,44 @@
+{% extends '@Gui/Layout/layout.twig' %}
+
+{% set widget_title = 'Audit Log: %s' | format(auditLog.id) | trans %}
+
+{% block head_title -%}
+    {{ widget_title }}
+{%- endblock %}
+
+{% block section_title %}{{ widget_title }}{% endblock %}
+
+{% block action %}
+    {{ backActionButton(url('/audit-log-gui/list'), 'Back to Audit Logs' | trans) }}
+{% endblock %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Audit Log Details' | trans } %}
+
+        {% block widget_content %}
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-3">
+                    <dl>
+                        <dt>{{ 'ID' | trans }}</dt>
+                        <dd>{{ auditLog.id }}</dd>
+                        <dt>{{ 'Action' | trans }}</dt>
+                        <dd>{{ auditLog.action }}</dd>
+                        <dt>{{ 'Entity Type' | trans }}</dt>
+                        <dd>{{ auditLog.entityType }}</dd>
+                        <dt>{{ 'Entity ID' | trans }}</dt>
+                        <dd>{{ auditLog.entityId }}</dd>
+                        <dt>{{ 'User ID' | trans }}</dt>
+                        <dd>{{ auditLog.userId }}</dd>
+                        <dt>{{ 'Timestamp' | trans }}</dt>
+                        <dd>{{ auditLog.timestamp }}</dd>
+                        <dt>{{ 'Details' | trans }}</dt>
+                        <dd>{{ auditLog.details }}</dd>
+                    </dl>
+                </div>
+            </div>
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}

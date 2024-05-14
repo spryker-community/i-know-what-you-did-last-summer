@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <transfers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
     <transfer name="AuditLog">
+        <property name="id" type="int"/>
         <property name="action" type="string"/>
         <property name="entityType" type="string"/>
         <property name="entityId" type="int"/>
