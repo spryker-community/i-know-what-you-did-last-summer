@@ -25,6 +25,7 @@ class AuditLogEntityManager extends AbstractEntityManager implements AuditLogEnt
     {
         $auditLogEntity = new AuditLogs();
         $auditLogEntity->fromArray($auditLogTransfer->modifiedToArray());
+        $auditLogEntity->setData(json_encode($auditLogTransfer->toArray()));
         $auditLogEntity->save();
     }
 }

@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\EventDispatcher;
 
+use Pyz\Zed\AuditLog\Communication\Plugin\EventDispatcher\AuditLogBackOfficeEventDispatcherPlugin;
 use Spryker\Shared\Http\Plugin\EventDispatcher\ResponseListenerEventDispatcherPlugin;
 use Spryker\Zed\Acl\Communication\Plugin\EventDispatcher\AccessControlEventDispatcherPlugin;
 use Spryker\Zed\Application\Communication\Plugin\EventDispatcher\HeadersSecurityEventDispatcherPlugin;
@@ -102,6 +103,7 @@ class EventDispatcherDependencyProvider extends SprykerEventDispatcherDependency
             new RedirectUrlValidationEventDispatcherPlugin(),
             new EnvironmentInfoHeaderEventDispatcherPlugin(),
             new SecurityBlockerBackofficeUserEventDispatcherPlugin(),
+            new AuditLogBackOfficeEventDispatcherPlugin(),
         ];
 
         if (class_exists(ProfilerRequestEventDispatcherPlugin::class)) {

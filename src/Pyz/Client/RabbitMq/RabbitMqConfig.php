@@ -123,7 +123,10 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
             CustomerStorageConfig::PUBLISH_CUSTOMER_INVALIDATED,
-            AuditLogConfig::PUBLISH_AUDIT_LOG,
+            AuditLogConfig::PUBLISH_AUDIT_LOG => [
+                EventConfig::EVENT_ROUTING_KEY_RETRY => AuditLogConfig::PUBLISH_AUDIT_LOG . '.retry',
+                EventConfig::EVENT_ROUTING_KEY_ERROR => AuditLogConfig::PUBLISH_AUDIT_LOG . '.error',
+            ],
         ];
     }
 

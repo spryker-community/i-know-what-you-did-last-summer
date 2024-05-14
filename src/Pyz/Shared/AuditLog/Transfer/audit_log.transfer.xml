@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <transfers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="AuditLogActor">
+        <property name="type" type="string"/>
+        <property name="identifier" type="string"/>
+        <property name="details" type="string"/>
+    </transfer>
+
     <transfer name="AuditLog">
         <property name="id" type="int"/>
+        <property name="actor" type="AuditLogActor"/>
         <property name="action" type="string"/>
         <property name="entityType" type="string"/>
         <property name="entityId" type="int"/>

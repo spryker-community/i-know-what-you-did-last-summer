@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\AuditLog;
 
+use Generated\Shared\Transfer\AuditLogActorTransfer;
 use Generated\Shared\Transfer\AuditLogTransfer;
 use Pyz\Zed\AuditLog\Business\AuditLogBusinessFactory;
 use Pyz\Zed\AuditLog\Business\Sanitizer\LogSanitizer;
@@ -18,6 +19,8 @@ class AuditLogSingleton
      * @var self|null
      */
     private static ?AuditLogSingleton $instance = null;
+
+    private ?AuditLogActorTransfer $auditLogActor = null;
 
     /**
      * @var list<\Generated\Shared\Transfer\AuditLogTransfer>
@@ -48,6 +51,17 @@ class AuditLogSingleton
     }
 
     /**
+     * @param \Generated\Shared\Transfer\AuditLogActorTransfer $auditLogActor
+     *
+     * @return void
+     */
+    public function setAuditLogActor(AuditLogActorTransfer $auditLogActor)
+    {
+        $this->auditLogActor = $auditLogActor;
+    }
+
+
+    /**
      * @param \Generated\Shared\Transfer\AuditLogTransfer $auditLogTransfer
      *
      * @return void
@@ -55,6 +69,10 @@ class AuditLogSingleton
     public function collectAuditLogData(AuditLogTransfer $auditLogTransfer): void
     {
         $auditLogTransfer = $this->auditLogSanitizer->sanitizeAuditLog($auditLogTransfer);
+
+        if (!$auditLogTransfer->getActor()) {
+            $auditLogTransfer->setActor($this->auditLogActor);
+        }
 
         $this->auditLogs[] = $auditLogTransfer;
     }
@@ -72,6 +90,10 @@ class AuditLogSingleton
      */
     public static function write(): void
     {
+        if (empty(static::getInstance()->getLogs())) {
+            return;
+        }
+
         Locator::getInstance()->event()->facade()->triggerBulk(
             AuditLogConfig::PUBLISH_AUDIT_LOG,
             static::getInstance()->getLogs(),
