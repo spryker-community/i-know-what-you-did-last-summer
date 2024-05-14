@@ -8,14 +8,23 @@
 namespace Pyz\Zed\AuditLog;
 
 use Generated\Shared\Transfer\AuditLogTransfer;
-use Spryker\Zed\Event\Business\EventFacade;
+use Spryker\Zed\Kernel\Locator;
 
 class AuditLogSingleton
 {
-    private static $instance = null;
+    /**
+     * @var self|null
+     */
+    private static ?AuditLogSingleton $instance = null;
 
-    private $auditLogs = [];
+    /**
+     * @var list<\Generated\Shared\Transfer\AuditLogTransfer>
+     */
+    private array $auditLogs = [];
 
+    /**
+     * @return self
+     */
     public static function getInstance(): self
     {
         if (self::$instance === null) {
@@ -27,6 +36,8 @@ class AuditLogSingleton
     }
 
     /**
+     * @param \Generated\Shared\Transfer\AuditLogTransfer $auditLogTransfer
+     *
      * @return void
      */
     public function collectAuditLogData(AuditLogTransfer $auditLogTransfer): void
@@ -34,6 +45,9 @@ class AuditLogSingleton
         $this->auditLogs[] = $auditLogTransfer;
     }
 
+    /**
+     * @return list<\Generated\Shared\Transfer\AuditLogTransfer>
+     */
     public function getLogs(): array
     {
         return $this->auditLogs;
@@ -44,10 +58,9 @@ class AuditLogSingleton
      */
     public static function write(): void
     {
-        foreach (static::getInstance()->getLogs() as $auditLogTransfer) {
-            file_put_contents(APPLICATION_ROOT_DIR . '/data/audit.log', json_encode($auditLogTransfer->toArray()) . PHP_EOL, FILE_APPEND);
-        }
-
-        (new EventFacade())->triggerBulk(AuditLogConfig::PUBLISH_AUDIT_LOG, static::getInstance()->getLogs());
+        Locator::getInstance()->event()->facade()->triggerBulk(
+            AuditLogConfig::PUBLISH_AUDIT_LOG,
+            static::getInstance()->getLogs(),
+        );
     }
 }

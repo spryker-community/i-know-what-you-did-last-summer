@@ -9,6 +9,9 @@ namespace Pyz\Zed\AuditLog;
 
 trait AuditLogTrait
 {
+    /**
+     * @return \Pyz\Zed\AuditLog\AuditLogSingleton
+     */
     public function getAuditLogger(): AuditLogSingleton
     {
         return AuditLogSingleton::getInstance();
