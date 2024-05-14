@@ -31,7 +31,8 @@ class EditController extends SprykerEditController
                     ->setUserId($this->getFacade()->getCurrentUser()->getIdUser())
                     ->setEntityType('user')
                     ->setEntityId($this->castId($request->get(static::PARAM_ID_USER)))
-                    ->setTimestamp(time()),
+                    ->setTimestamp(time())
+                    ->setDetails(json_encode(['test' => 'test', 'password' => 'asdasdasda'])),
             );
 
         return parent::updateAction($request);
