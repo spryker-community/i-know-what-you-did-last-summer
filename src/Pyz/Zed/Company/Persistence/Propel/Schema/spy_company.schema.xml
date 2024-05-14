@@ -6,6 +6,9 @@
             <parameter name="spy_company_is_active" column="is_active"/>
             <parameter name="spy_company_status" column="status"/>
         </behavior>
+        <behavior name="\Pyz\Zed\AuditLog\Persistence\Propel\Behavior\AuditBehavior">
+            <parameter name="spy_company" column="*" />
+        </behavior>
     </table>
 
 </database>

@@ -6,6 +6,10 @@
             <parameter name="spy_customer_anonymized_at" column="anonymized_at"/>
             <parameter name="spy_customer_password" column="password"/>
         </behavior>
+        <behavior name="\Pyz\Zed\AuditLog\Persistence\Propel\Behavior\AuditBehavior">
+            <parameter name="spy_customer" column="first_name" />
+<!--            <parameter name="spy_customer" column="*" />-->
+        </behavior>
     </table>
 
 </database>
